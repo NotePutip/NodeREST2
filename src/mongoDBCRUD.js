@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 mongoose.connect(
-  "mongodb://admin:COVaab32430@node58388-note-noderest.proen.app.ruk-com.cloud:11855",
+  "mongodb://admin:COVaab32430@node58381-note-noderest.proen.app.ruk-com.cloud:11855",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -33,7 +33,6 @@ app.post("/books", async (req, res) => {
             id: nextId,
             ...req.body,
         });
-
         await book.save();
         res.send(book);
     }catch (error){
@@ -64,7 +63,7 @@ app.get("/books/:id", async (req, res) => {
 // Update
 app.put("/books/:id", async (req, res) => {
   try {
-    const book = await Book.findOneAndUpdate({id:req.params.id}, req.body, {
+    const book = await Book.findOneAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.send(book);
@@ -76,7 +75,7 @@ app.put("/books/:id", async (req, res) => {
 // Delete
 app.delete("/books/:id", async (req, res) => {
   try {
-    const book = await Book.findOneAndDelete({id:req.params.id});
+    const book = await Book.findOneAndDelete(req.params.id);
     res.send(book);
   } catch (error) {
     res.status(500).send(error);
